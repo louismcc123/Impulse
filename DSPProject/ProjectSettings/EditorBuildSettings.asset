@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Mouse and Keyboard/MainMenu.unity
     guid: 9a12df35ed169fb40b1b570b8d2b1257
   - enabled: 1
     path: Assets/Scenes/VR Main Menu.unity
@@ -21,10 +21,11 @@ EditorBuildSettings:
     path: Assets/Scenes/VR Restart.unity
     guid: c8da43e585cc37044840b78fdd67a6c9
   - enabled: 0
-    path: Assets/Scenes/Restart.unity
+    path: Assets/Scenes/Mouse and Keyboard/Restart.unity
     guid: 51bb8c841fb6f1d4e9cce0772d481ac7
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 19be01287268871458a61ba03548ac2e, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bd28b905fe8f7e945933c90200140ed2, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 8e9aad7076597904d826bc6ccc2ada7e, type: 2}
     xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: a83164aa9d5fd5d4b94b567daffe48b5, type: 2}
   m_UseUCBPForAssetBundles: 0

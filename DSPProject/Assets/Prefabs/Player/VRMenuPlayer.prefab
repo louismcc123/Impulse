@@ -250,6 +250,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3127797778172065230, guid: 016032c92f511e44ea0cde077a78fecf, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3901887773931642591, guid: 016032c92f511e44ea0cde077a78fecf, type: 3}
       propertyPath: m_Enabled
       value: 0
