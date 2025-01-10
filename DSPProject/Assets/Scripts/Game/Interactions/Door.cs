@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.InputSystem;
 
 public class Door : MonoBehaviour
 {
@@ -92,6 +90,8 @@ public class Door : MonoBehaviour
                 Debug.Log("Player doesn't have enough health.");
 
                 vocals.Say(lockedDoorAudioObject);
+                activateDoorRay.openUI.SetActive(false);
+                activateDoorRay.closeUI.SetActive(false);
                 doorLockedUI.SetActive(true);
                 StartCoroutine(ClearAfterSeconds(3f));
             }

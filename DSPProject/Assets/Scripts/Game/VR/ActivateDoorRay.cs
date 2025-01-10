@@ -5,14 +5,14 @@ using UnityEngine.InputSystem;
 
 public class ActivateDoorRay : MonoBehaviour
 {
-    [SerializeField] private GameObject openUI;
-    [SerializeField] private GameObject closeUI; 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private InputActionReference customActionReference;
     [SerializeField] private float rayActivationDistance = 3f;
 
-    public Door currentDoor;
+    public GameObject openUI;
+    public GameObject closeUI; 
 
+    public Door currentDoor;
     private LayerMask doorLayerMask;
 
     void Start()
@@ -45,7 +45,8 @@ public class ActivateDoorRay : MonoBehaviour
 
                 if (customActionReference.action.triggered)
                 {
-                    Debug.Log(" attempting to interact with door");
+                    openUI.SetActive(false);
+                    closeUI.SetActive(false);
                     door.HandleDoorInteraction();
                 }
             
