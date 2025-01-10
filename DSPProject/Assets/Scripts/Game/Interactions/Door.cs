@@ -8,7 +8,6 @@ public class Door : MonoBehaviour
 {
     [SerializeField] private GameObject doorLockedUI;
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private InputActionReference customActionReference;
     [SerializeField] private ActivateDoorRay activateDoorRay;
 
     public GameObject Player;
@@ -37,6 +36,14 @@ public class Door : MonoBehaviour
             playerStats = Player.GetComponent<PlayerStats>();
             vocals = Player.GetComponent<Vocals>();
             pickUp = Player.GetComponent<XRPickUp>();
+
+            if (playerStats == null) Debug.LogError("PlayerStats component is missing from the Player object.");
+            if (vocals == null) Debug.LogError("Vocals component is missing from the Player object.");
+            if (pickUp == null) Debug.LogError("XRPickUp component is missing from the Player object.");
+        }
+        else
+        {
+            Debug.LogError("Player reference is not set in the Door script.");
         }
 
         switch (doorNumber)
@@ -53,19 +60,14 @@ public class Door : MonoBehaviour
         }
     }
 
-    void Update()
+    public void HandleDoorInteraction()
     {
-        if (activateDoorRay != null && activateDoorRay.currentDoor == this)
+        if (playerStats == null)
         {
-            if (customActionReference.action.triggered)
-            {
-                HandleDoorInteraction();
-            }
+            Debug.LogError("PlayerStats is null in HandleDoorInteraction.");
+            return;
         }
-    }
 
-    void HandleDoorInteraction()
-    {
         if (!open)
         {
             if (playerStats.currentHealth >= requiredHealth)
@@ -87,6 +89,8 @@ public class Door : MonoBehaviour
             }
             else
             {
+                Debug.Log("Player doesn't have enough health.");
+
                 vocals.Say(lockedDoorAudioObject);
                 doorLockedUI.SetActive(true);
                 StartCoroutine(ClearAfterSeconds(3f));

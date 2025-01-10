@@ -1,53 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ActivateDoorRay : MonoBehaviour
 {
     [SerializeField] private GameObject openUI;
     [SerializeField] private GameObject closeUI; 
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private InputActionReference customActionReference;
     [SerializeField] private float rayActivationDistance = 3f;
 
-    public GameObject leftRay;
-    public GameObject rightRay;
-
-    public bool rayIsActive = false;
-
     public Door currentDoor;
+
+    private LayerMask doorLayerMask;
+
+    void Start()
+    {
+        doorLayerMask = LayerMask.GetMask("Door");
+    }
 
     void Update()
     {
         Ray ray = new Ray(playerTransform.position, playerTransform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, rayActivationDistance))
+        if (Physics.Raycast(ray, out hit, rayActivationDistance, doorLayerMask))
         {
-            if (hit.collider != null && hit.collider.CompareTag("Door"))
+            Door door = hit.collider.GetComponent<Door>();
+            if (door != null)
             {
-                leftRay.SetActive(true);
-                rightRay.SetActive(true);
-                rayIsActive = true;
+                currentDoor = door;
 
-                currentDoor = hit.collider.GetComponent<Door>();
-                if (currentDoor != null)
+                if (!door.open)
                 {
-                    if (!currentDoor.open)
-                    {
-                        openUI.SetActive(true);
-                    }
-                    else
-                    {
-                        closeUI.SetActive(true);
-                    }
+                    openUI.SetActive(true);
+                    closeUI.SetActive(false);
                 }
+                else
+                {
+                    openUI.SetActive(false);
+                    closeUI.SetActive(true);
+                }
+
+                if (customActionReference.action.triggered)
+                {
+                    Debug.Log(" attempting to interact with door");
+                    door.HandleDoorInteraction();
+                }
+            
+            return; 
             }
         }
         else
         {
-            leftRay.SetActive(false);
-            rightRay.SetActive(false);
-            rayIsActive = false;
             openUI.SetActive(false);
             closeUI.SetActive(false);
         }
